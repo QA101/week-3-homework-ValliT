@@ -32,7 +32,7 @@ public class MimicSignIn {
 		 *  TODO Check if the arguments is the right length.
 		 *  If not the right length, exit immediately.
 		 */ 
-		if(true) {
+		if(args.length==3) {
 			String username = args[0];
 			String password = args[1];
 			String email = args[2];
@@ -41,54 +41,46 @@ public class MimicSignIn {
 			String password_attempt = "";			
 			Scanner console = new Scanner(System.in);
 			
-			/**
-			 *  TODO write a code block that check if the user supplied the correct username and password
-			 *  You should use a for loop
-			 *  You should trim off spaces in-front of or after the string
-			 *  Then compare the username_attempt to username and password_attempt to password
-			 */
-			//for(something){
+			for(int i = 0; i< MAX_ATTEMPTS; i++){
 				System.out.println("Username:");
-				console.nextLine();
+				username_attempt = console.nextLine().trim();
 				
 				System.out.println("Password:");
-				console.nextLine();
-			//}
-			
-			/**
-			 * What is a valid email address?
-			 * 
-			 */
-			if(true) {
-				System.out.println("You have a valid email address");
+				password_attempt = console.nextLine().trim();
+				if(username.equals(username_attempt) && password.equals(password_attempt)) {
+					if(ValidEmail(email)) {
+						System.out.println("You have a valid email address");
+					}
+					else {
+						System.out.println("You do not have a valid email address");
+					}
+					i = MAX_ATTEMPTS+1;
+				}
 			}
-			else {
-				//I am dead code because my IF statement is always true. <-- FIX ME
-				System.out.println("You do not have a valid email address");
-			}
-			
-			//closing console
 			console.close();
 		}
 		else {
-			//I am dead code because my IF statement is always true. <-- FIX ME
 			System.out.println("wrong number of elements");
 		}
 	}
 	
 	/**
-	 * This method will take an email string and valid if it has a valid format
+	 * This method will take an email string and validate if it has a valid format.
+	 * This only check minimal domain names
 	 * 
-	 * @param email - email string which needs to be valided for cthe correct format
+	 * @param email - email string which needs to be validated for the correct format
 	 * @return - returns true if the email is valid, returns false if it is not valid
 	 */
 	public static boolean ValidEmail(String email) {
-		if (true) {
-			return true;
-		}
-		else {
-			return false;
+		Boolean FoundValid = false;
+		String[] emailEnding = {"@hotmail.com", "@gmail.com", "@yahoo.com", "@microsoft.com"};
+		
+		for(String e : emailEnding) {
+			if(email.endsWith(e)) {
+				FoundValid = true;
+			}
 		}
 		
+		return FoundValid;
 	}
 }
